@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Browse Projects | CollabFund</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="browse.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-left">
+      <div class="logo"><a href="/"><i class="fas fa-rocket"></i> CollabFund</a></div>
+      <nav class="nav-links">
+        <a href="/"><i class="bi bi-house-door-fill"></i> Home</a>
+        <a href="browse.html" class="active"><i class="bi bi-search-heart-fill"></i> Browse Projects</a>
+        <a href="discussion.html"><i class="bi bi-chat-dots-fill"></i> Discussion</a>
+        <a href="dashboard.html" id="dashboard-link" style="display: none;"><i class="bi bi-speedometer2"></i> Dashboard</a>
+      </nav>
+    </div>
+    <div class="nav-right" id="nav-auth">
+      <a href="login.html" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="register.html" class="register-btn"><i class="fas fa-user-plus"></i> Register</a>
+    </div>
+  </header>
+
+  <div class="browse-container">
+
+    <!-- Page Header Section -->
+    <section class="page-header-section">
+      <div class="header-content">
+        <h1><i class="bi bi-search-heart-fill"></i> Discover Amazing Projects</h1>
+        <p>Explore innovative student projects from across the world. Find exciting collaborations, support creative ideas, and connect with talented innovators.</p>
+      </div>
+    </section>
+
+    <!-- Filters and Search -->
+    <section class="filters-section">
+      <div class="filters-container">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-input" placeholder="Search projects...">
+        </div>
+
+        <div class="filter-controls">
+          <select id="category-filter">
+            <option value="">All Categories</option>
+            <option value="Technology">Technology</option>
+            <option value="Health">Health & Medicine</option>
+            <option value="Environment">Environment</option>
+            <option value="Education">Education</option>
+            <option value="Arts">Arts & Design</option>
+            <option value="Business">Business & Entrepreneurship</option>
+            <option value="Social">Social Impact</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <select id="sort-filter">
+            <option value="recent">Most Recent</option>
+            <option value="popular">Most Popular</option>
+            <option value="funding">Highest Funding</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects-section">
+      <div class="projects-container">
+        <div class="projects-grid" id="projects-grid">
+          <!-- Projects will be loaded here dynamically -->
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading-indicator" id="loading">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Loading projects...</p>
+        </div>
+
+        <!-- No Results -->
+        <div class="no-results" id="no-results" style="display: none;">
+          <i class="fas fa-search"></i>
+          <h3>No projects found</h3>
+          <p>Try adjusting your search criteria or check back later for new projects.</p>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="load-more-container" id="load-more-container" style="display: none;">
+          <button class="load-more-btn" id="load-more-btn">
+            <i class="fas fa-plus"></i> Load More Projects
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Project Modal -->
+  <div class="modal" id="project-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Project Title</h2>
+        <button class="close-modal" id="close-modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="project-details">
+          <div class="project-meta">
+            <div class="meta-item">
+              <i class="fas fa-tag"></i>
+              <span id="modal-category">Category</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-calendar"></i>
+              <span id="modal-date">Date</span>
+            </div>
+            <div class="meta-item" id="modal-owner">
+              <i class="fas fa-user"></i>
+              <span>Owner Name</span>
+            </div>
+          </div>
+          
+          <div class="project-stats">
+            <div class="stat">
+              <i class="fas fa-thumbs-up"></i>
+              <span class="stat-value" id="modal-votes">0</span>
+              <span class="stat-label">votes</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-dollar-sign"></i>
+              <span class="stat-value" id="modal-funding">$0</span>
+              <span class="stat-label">raised</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-users"></i>
+              <span class="stat-value" id="modal-collabs">0</span>
+              <span class="stat-label">collaborators</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-target"></i>
+              <span class="stat-value" id="modal-goal">$0</span>
+              <span class="stat-label">goal</span>
+            </div>
+          </div>
+          
+          <div class="project-description full" id="modal-description">
+            Project description will appear here...
+          </div>
+        </div>
+
+        <div class="project-actions">
+          <button class="action-btn vote-btn" id="vote-btn">
+            <i class="fas fa-thumbs-up"></i> Upvote
+          </button>
+          <button class="action-btn collab-btn" id="collab-btn">
+            <i class="fas fa-handshake"></i> Collaborate
+          </button>
+          <button class="action-btn donate-btn" id="donate-btn">
+            <i class="fas fa-heart"></i> Donate
+          </button>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <h3><i class="fas fa-comments"></i> Comments</h3>
+          
+          <div class="add-comment" id="add-comment-section" style="display: none;">
+            <textarea id="comment-input" placeholder="Write a comment..." rows="3"></textarea>
+            <button class="submit-comment-btn" id="submit-comment">
+              <i class="fas fa-paper-plane"></i> Post Comment
+            </button>
+          </div>
+          
+          <div class="comments-list" id="comments-list">
+            <!-- Comments will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Collaboration Modal -->
+  <div class="modal" id="collab-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Request Collaboration</h2>
+        <button class="close-modal" id="close-collab-modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Send a collaboration request to the project owner:</p>
+        <textarea id="collab-message" placeholder="Introduce yourself and explain why you'd like to collaborate..." rows="4"></textarea>
+        <div class="modal-actions">
+          <button class="action-btn" id="send-collab-request">
+            <i class="fas fa-handshake"></i> Send Request
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Donation Modal -->
+  <div class="modal" id="donate-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Support This Project</h2>
+        <button class="close-modal" id="close-donate-modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Help fund this innovative project:</p>
+        <div class="donation-form">
+          <label for="donation-amount">Amount (USD)</label>
+          <input type="number" id="donation-amount" placeholder="25.00" min="1" step="0.01">
+          <label for="donation-message">Message (optional)</label>
+          <textarea id="donation-message" placeholder="Leave an encouraging message..." rows="3"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button class="action-btn" id="send-donation">
+            <i class="fas fa-heart"></i> Donate Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message Container -->
+  <div id="message-container" class="message-container"></div>
+
+  <script src="js/browse.js"></script>
+</body>
+</html>

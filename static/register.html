@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register | CollabFund</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="register.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-left">
+      <div class="logo"><a href="/" ><i class="fas fa-rocket"></i> CollabFund</a></div>
+      <nav class="nav-links">
+        <a href="/"><i class="bi bi-house-door-fill"></i> Home</a>
+        <a href="browse.html"><i class="bi bi-search-heart-fill"></i> Browse Projects</a>
+        <a href="discussion.html"><i class="bi bi-chat-dots-fill"></i> Discussion</a>
+      </nav>
+    </div>
+    <div class="nav-right">
+      <a href="login.html" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="register.html" class="register-btn active"><i class="fas fa-user-plus"></i> Register</a>
+    </div>
+  </header>
+
+  <section class="register-wrapper">
+    <div class="register-box">
+      <div class="register-icon">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      <h2>Join CollabFund</h2>
+      <p>Create your account and start collaborating</p>
+
+      <form id="register-form">
+        <div class="form-row">
+          <div class="input-icon">
+            <i class="fas fa-user"></i>
+            <input type="text" id="username" placeholder="Username" required />
+          </div>
+          <div class="input-icon">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" placeholder="Email" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-icon">
+            <i class="fas fa-user-tag"></i>
+            <input type="text" id="fullName" placeholder="Full Name" required />
+          </div>
+          <div class="input-icon">
+            <i class="fas fa-school"></i>
+            <input type="text" id="college" placeholder="College/University" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="input-icon">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" placeholder="Password" required />
+          </div>
+          <div class="input-icon">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+          </div>
+        </div>
+
+        <div class="checkbox-row">
+          <label>
+            <input type="checkbox" id="agree" required />
+            <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+          </label>
+        </div>
+
+        <div class="submit-btn-container">
+          <button type="submit"><i class="fas fa-user-plus"></i> Create Account</button>
+        </div>
+      </form>
+
+      <div id="error-message" style="color: red; margin-top: 1rem; display: none;"></div>
+      <div id="success-message" style="color: green; margin-top: 1rem; display: none;"></div>
+
+      <p class="signup-link">Already have an account? <a href="login.html">Sign in</a></p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-col logo-col">
+        <h3><i class="fas fa-rocket"></i> CollabFund</h3>
+        <p>Empowering student innovation through collaboration and funding. Turn your college projects into real-world success stories.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="browse.html">Browse Projects</a></li>
+          <li><a href="dashboard.html">Upload Project</a></li>
+          <li><a href="#">How it Works</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Connected</h4>
+        <p>Follow us for updates and success stories</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 CollabFund. All rights reserved. Built by students, for students.</p>
+    </div>
+  </footer>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

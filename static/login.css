@@ -1,0 +1,135 @@
+/* LOGIN PAGE STYLING */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #6a11cb, #b16cea);
+}
+
+/* Login Wrapper */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 1rem;
+}
+
+/* Login Card */
+.login-box {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 2.5rem;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Icon Top */
+.login-icon {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  font-size: 1.6rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.login-box h2 {
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+  color: #222;
+}
+
+.login-box p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* Input Group */
+.input-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input-group i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.input-group input {
+  width: 90%;
+  padding: 0.6rem 0.5rem 0.5rem 2.2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #6a11cb;
+  outline: none;
+}
+
+/* Checkbox */
+.checkbox-row {
+  text-align: left;
+  margin: 1rem 0;
+}
+
+.checkbox-row label {
+  font-size: 0.9rem;
+  color: #444;
+  cursor: pointer;
+}
+
+form button {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  padding: 0.65rem 1.3rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+form button:hover {
+  background: linear-gradient(to right, #4b00a8, #1a57e2);
+}
+
+form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Signup link */
+.signup-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.signup-link a {
+  color: #6a11cb;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}

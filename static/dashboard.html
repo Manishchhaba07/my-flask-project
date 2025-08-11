@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | CollabFund</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-left">
+      <div class="logo"><a href="/"><i class="fas fa-rocket"></i> CollabFund</a></div>
+      <nav class="nav-links">
+        <a href="/"><i class="bi bi-house-door-fill"></i> Home</a>
+        <a href="browse.html"><i class="bi bi-search-heart-fill"></i> Browse Projects</a>
+        <a href="discussion.html"><i class="bi bi-chat-dots-fill"></i> Discussion</a>
+        <a href="dashboard.html" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a>
+      </nav>
+    </div>
+    <div class="nav-right" id="nav-auth">
+      <span class="user-greeting" id="user-greeting">Welcome!</span>
+      <a href="profile.html" class="profile-link"><i class="fas fa-user"></i> Profile</a>
+      <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+  </header>
+
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <a href="#overview" class="nav-item active" data-section="overview">
+          <div class="nav-item-content">
+            <i class="fas fa-chart-bar"></i> Overview
+          </div>
+        </a>
+        <a href="#create-project" class="nav-item" data-section="create-project">
+          <div class="nav-item-content">
+            <i class="fas fa-plus-circle"></i> Create Project
+          </div>
+        </a>
+        <a href="#my-projects" class="nav-item" data-section="my-projects">
+          <div class="nav-item-content">
+            <i class="fas fa-folder-open"></i> My Projects
+          </div>
+        </a>
+        <a href="#collaborations" class="nav-item" data-section="collaborations">
+          <div class="nav-item-content">
+            <i class="fas fa-handshake"></i> Collaborations
+          </div>
+        </a>
+        <a href="#team" class="nav-item" data-section="team">
+          <div class="nav-item-content">
+            <i class="fas fa-users"></i> My Team
+          </div>
+        </a>
+        <a href="#notifications" class="nav-item" data-section="notifications">
+          <div class="nav-item-content">
+            <i class="fas fa-bell"></i> Notifications
+          </div>
+          <span class="notification-count" id="notification-count" style="display: none;">0</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- Overview Section -->
+      <section id="overview" class="content-section active">
+        <div class="section-header">
+          <h2><i class="fas fa-chart-bar"></i> Dashboard Overview</h2>
+          <p>Your project statistics and activity summary</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card projects-card">
+            <div class="stat-icon">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="total-projects-count">0</h3>
+              <p>Total Projects</p>
+              <span class="stat-trend" id="projects-trend"></span>
+            </div>
+          </div>
+
+          <div class="stat-card funding-card">
+            <div class="stat-icon">
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="total-funding-amount">$0</h3>
+              <p>Total Funding</p>
+              <span class="stat-trend" id="funding-trend"></span>
+            </div>
+          </div>
+
+          <div class="stat-card votes-card">
+            <div class="stat-icon">
+              <i class="fas fa-thumbs-up"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="total-votes-count">0</h3>
+              <p>Total Upvotes</p>
+              <span class="stat-trend" id="votes-trend"></span>
+            </div>
+          </div>
+
+          <div class="stat-card collabs-card">
+            <div class="stat-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+              <h3 id="total-collabs-count">0</h3>
+              <p>Collaborations</p>
+              <span class="stat-trend" id="collabs-trend"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <h3>Quick Actions</h3>
+          <div class="action-buttons">
+            <button class="quick-action-btn" onclick="switchSection('create-project')">
+              <i class="fas fa-plus"></i>
+              <span>Create Project</span>
+            </button>
+            <button class="quick-action-btn" onclick="window.location.href='browse.html'">
+              <i class="fas fa-search"></i>
+              <span>Browse Projects</span>
+            </button>
+
+            <button class="quick-action-btn" onclick="switchSection('notifications')">
+              <i class="fas fa-bell"></i>
+              <span>View Notifications</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="recent-activity">
+          <h3>Recent Projects</h3>
+          <div class="activity-list" id="recent-projects">
+            <!-- Recent projects will be loaded here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Create Project Section -->
+      <section id="create-project" class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-plus-circle"></i> Create New Project</h2>
+          <p>Share your innovative ideas with the community</p>
+        </div>
+
+        <div class="project-form-container">
+          <form id="project-form" class="project-form">
+            <div class="form-group">
+              <label for="project-title">
+                <i class="fas fa-heading"></i> Project Title
+              </label>
+              <input type="text" id="project-title" placeholder="Enter your project title" required>
+            </div>
+
+            <div class="form-group">
+              <label for="project-category">
+                <i class="fas fa-tags"></i> Category
+              </label>
+              <select id="project-category" required>
+                <option value="">Select a category</option>
+                <option value="Technology">Technology</option>
+                <option value="Health">Health & Medicine</option>
+                <option value="Environment">Environment</option>
+                <option value="Education">Education</option>
+                <option value="Arts">Arts & Design</option>
+                <option value="Business">Business & Entrepreneurship</option>
+                <option value="Social">Social Impact</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="funding-goal">
+                <i class="fas fa-dollar-sign"></i> Funding Goal (USD)
+              </label>
+              <input type="number" id="funding-goal" placeholder="0" min="0" step="0.01">
+            </div>
+
+            <div class="form-group">
+              <label for="project-description">
+                <i class="fas fa-align-left"></i> Project Description
+              </label>
+              <textarea id="project-description" rows="8" placeholder="Describe your project idea in detail (minimum 50 words)..." required></textarea>
+              <small class="word-count">
+                <span id="word-count">0</span> words (minimum 50 required)
+              </small>
+            </div>
+
+
+
+            <button type="submit" class="submit-btn">
+              <i class="fas fa-rocket"></i> Launch Project
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- My Projects Section -->
+      <section id="my-projects" class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-folder-open"></i> My Projects</h2>
+          <p>Manage and track your projects</p>
+        </div>
+
+        <div class="projects-grid" id="user-projects">
+          <!-- User projects will be loaded here -->
+        </div>
+      </section>
+
+      <!-- Collaborations Section -->
+      <section id="collaborations" class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-handshake"></i> Collaboration Requests</h2>
+          <p>Manage collaboration requests for your projects</p>
+        </div>
+
+        <div class="collaborations-list" id="collaboration-requests">
+          <!-- Collaboration requests will be loaded here -->
+        </div>
+      </section>
+
+      <!-- Notifications Section -->
+      <section id="notifications" class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-bell"></i> Notifications</h2>
+          <p>Stay updated with your project activities and community interactions</p>
+          <div class="notification-controls">
+            <button class="btn-secondary" id="mark-all-read">
+              <i class="fas fa-check-double"></i> Mark All as Read
+            </button>
+            <button class="btn-secondary" id="clear-notifications">
+              <i class="fas fa-trash"></i> Clear All
+            </button>
+          </div>
+        </div>
+
+        <div class="notifications-container">
+          <div class="notification-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="likes">Likes</button>
+            <button class="filter-btn" data-filter="comments">Comments</button>
+            <button class="filter-btn" data-filter="collaborations">Collaborations</button>
+            <button class="filter-btn" data-filter="projects">Projects</button>
+          </div>
+          
+          <div class="notifications-list" id="notifications-list">
+            <!-- Notifications will be loaded here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Team Section -->
+      <section id="team" class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-users"></i> My Team</h2>
+          <p>Team members from accepted collaborations</p>
+        </div>
+
+        <div class="team-container" id="team-container">
+          <!-- Team members will be loaded here -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Team Chat Sidebar -->
+    <aside class="chat-sidebar" id="chat-sidebar">
+      <div class="chat-sidebar-header">
+        <h3 id="chat-sidebar-title">Team Chat</h3>
+        <button class="close-chat-sidebar" onclick="closeChatSidebar()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="chat-participants">
+        <h4>Team Members</h4>
+        <div class="participants-list" id="chat-participants-list">
+          <!-- Participants will be loaded here -->
+        </div>
+      </div>
+      
+      <div class="chat-messages-container">
+        <div class="chat-messages" id="sidebar-chat-messages">
+          <!-- Messages will be loaded here -->
+        </div>
+      </div>
+      
+      <div class="chat-input-area">
+        <div class="chat-input-group">
+          <input type="text" id="sidebar-chat-input" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+          <button class="send-message-btn" onclick="sendSidebarMessage()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Success/Error Messages -->
+  <div id="message-container" class="message-container"></div>
+
+  <!-- Project Details Modal -->
+  <div class="project-modal" id="project-modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2 id="modal-project-title">Project Details</h2>
+        <button class="close-modal" onclick="closeProjectModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-content" id="project-modal-content">
+        <!-- Project details will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

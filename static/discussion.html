@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Discussion | CollabFund</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="discussion.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-left">
+      <div class="logo"><a href="/" ><i class="fas fa-rocket"></i> CollabFund</a></div>
+      <nav class="nav-links">
+        <a href="/"><i class="bi bi-house-door-fill"></i> Home</a>
+        <a href="browse.html"><i class="bi bi-search-heart-fill"></i> Browse Projects</a>
+        <a href="discussion.html" class="active"><i class="bi bi-chat-dots-fill"></i> Discussion</a>
+        <a href="dashboard.html" id="dashboard-link" style="display: none;"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="profile.html" id="profile-link" style="display: none;"><i class="bi bi-person-circle"></i> Profile</a>
+      </nav>
+    </div>
+    <div class="nav-right" id="nav-auth">
+      <a href="login.html" class="login-btn" id="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="register.html" class="register-btn" id="register-btn"><i class="fas fa-user-plus"></i> Sign Up</a>
+      <!-- Authenticated user menu (hidden by default) -->
+      <div class="user-menu" id="user-menu" style="display: none;">
+        <button class="user-dropdown-btn" onclick="toggleUserMenu()">
+          <i class="fas fa-user-circle"></i> <span id="user-name">User</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="user-dropdown" id="user-dropdown">
+          <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+          <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+          <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="discussion-main">
+    <div class="container">
+      <!-- Discussion Header -->
+      <div class="discussion-header">
+        <h1>Community Discussion</h1>
+        <p>Share ideas, ask questions, and connect with fellow innovators</p>
+      </div>
+
+      <!-- Create Discussion Section -->
+      <div class="create-discussion-section" id="create-discussion-section">
+        <div class="create-discussion-card">
+          <div class="create-header">
+            <h3><i class="fas fa-plus-circle"></i> Start a Discussion</h3>
+            <button class="btn-create-toggle" onclick="toggleCreateForm()">
+              <i class="fas fa-plus"></i> Create Post
+            </button>
+          </div>
+          
+          <form id="discussion-form" class="discussion-form" style="display: none;">
+            <div class="form-group">
+              <label for="discussion-title">Title</label>
+              <input type="text" id="discussion-title" name="title" placeholder="What would you like to discuss?" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="discussion-category">Category</label>
+              <select id="discussion-category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="general">General Discussion</option>
+                <option value="project-ideas">Project Ideas</option>
+                <option value="questions">Questions & Help</option>
+                <option value="collaboration">Collaboration</option>
+                <option value="showcase">Project Showcase</option>
+                <option value="feedback">Feedback & Reviews</option>
+                <option value="resources">Resources & Tips</option>
+                <option value="announcements">Announcements</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="discussion-content">Content</label>
+              <textarea id="discussion-content" name="content" placeholder="Share your thoughts, ideas, or questions..." rows="6" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="discussion-tags">Tags (optional)</label>
+              <input type="text" id="discussion-tags" name="tags" placeholder="Add tags separated by commas (e.g., javascript, design, startup)">
+            </div>
+            
+            <div class="form-group">
+              <label>Attach Image (optional)</label>
+              <div class="image-upload-container">
+                <input type="file" id="discussion-image" name="image" accept="image/*" style="display: none;">
+                <button type="button" class="image-upload-btn" onclick="document.getElementById('discussion-image').click()">
+                  <i class="fas fa-camera"></i> Choose Image
+                </button>
+                <div class="image-preview" id="image-preview" style="display: none;">
+                  <img id="preview-img" src="" alt="Preview">
+                  <button type="button" class="remove-image-btn" onclick="removeImage()">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" onclick="cancelDiscussion()">Cancel</button>
+              <button type="submit" class="btn-submit" id="submit-discussion-btn">
+                <i class="fas fa-paper-plane"></i> Post Discussion
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Discussion Filters and Search -->
+      <div class="discussion-controls">
+        <div class="search-filters">
+          <div class="search-box">
+            <input type="text" id="search-input" placeholder="Search discussions...">
+            <button onclick="searchDiscussions()"><i class="fas fa-search"></i></button>
+          </div>
+          
+          <div class="filter-controls">
+            <select id="category-filter" onchange="filterDiscussions()">
+              <option value="">All Categories</option>
+              <option value="general">General Discussion</option>
+              <option value="project-ideas">Project Ideas</option>
+              <option value="questions">Questions & Help</option>
+              <option value="collaboration">Collaboration</option>
+              <option value="showcase">Project Showcase</option>
+              <option value="feedback">Feedback & Reviews</option>
+              <option value="resources">Resources & Tips</option>
+              <option value="announcements">Announcements</option>
+            </select>
+            
+            <select id="sort-filter" onchange="filterDiscussions()">
+              <option value="recent">Most Recent</option>
+              <option value="popular">Most Popular</option>
+              <option value="commented">Most Commented</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Discussion List -->
+      <div class="discussions-container">
+        <div id="discussions-list" class="discussions-list">
+          <!-- Discussions will be loaded here -->
+        </div>
+        
+        <div class="pagination-container">
+          <button id="load-more-btn" class="load-more-btn" onclick="loadMoreDiscussions()" style="display: none;">
+            Load More Discussions
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Discussion Detail Modal -->
+  <div id="discussion-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-discussion-title"></h3>
+        <span class="close" onclick="closeDiscussionModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div id="discussion-detail" class="discussion-detail">
+          <!-- Discussion detail will be loaded here -->
+        </div>
+        
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <h4><i class="fas fa-comments"></i> Comments</h4>
+          
+          <!-- Add Comment Form -->
+          <form id="comment-form" class="comment-form" style="display: none;">
+            <textarea id="comment-content" placeholder="Write a comment..." rows="3" required></textarea>
+            <div class="comment-actions">
+              <button type="button" class="btn-cancel" onclick="cancelComment()">Cancel</button>
+              <button type="submit" class="btn-submit">Post Comment</button>
+            </div>
+          </form>
+          
+          <button id="add-comment-btn" class="add-comment-btn" onclick="showCommentForm()" style="display: none;">
+            <i class="fas fa-plus"></i> Add Comment
+          </button>
+          
+          <!-- Comments List -->
+          <div id="comments-list" class="comments-list">
+            <!-- Comments will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Discussion Modal -->
+  <div id="edit-discussion-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit Discussion</h3>
+        <span class="close" onclick="closeEditModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="edit-discussion-form" class="discussion-form">
+          <div class="form-group">
+            <label for="edit-title">Title</label>
+            <input type="text" id="edit-title" name="title" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="edit-category">Category</label>
+            <select id="edit-category" name="category" required>
+              <option value="general">General Discussion</option>
+              <option value="project-ideas">Project Ideas</option>
+              <option value="questions">Questions & Help</option>
+              <option value="collaboration">Collaboration</option>
+              <option value="showcase">Project Showcase</option>
+              <option value="feedback">Feedback & Reviews</option>
+              <option value="resources">Resources & Tips</option>
+              <option value="announcements">Announcements</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="edit-content">Content</label>
+            <textarea id="edit-content" name="content" rows="6" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="edit-tags">Tags</label>
+            <input type="text" id="edit-tags" name="tags" placeholder="Add tags separated by commas">
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="closeEditModal()">Cancel</button>
+            <button type="submit" class="btn-submit">Update Discussion</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/discussion.js"></script>
+</body>
+</html>
